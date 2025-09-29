@@ -75,12 +75,12 @@ Helped a small business (my dad’s upholstery company) save time and reduce mis
   },
 };
 
-// ✅ Correct typing for Next.js App Router props
-interface ProjectPageProps {
+// ✅ No strict PageProps typing — just enough to pass TS + ESLint
+export default function ProjectPage({
+  params,
+}: {
   params: { slug: string };
-}
-
-export default function ProjectPage({ params }: ProjectPageProps) {
+}) {
   const project = projects[params.slug];
   if (!project) return notFound();
 
