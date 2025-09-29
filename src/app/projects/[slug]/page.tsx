@@ -75,11 +75,14 @@ Helped a small business (my dad’s upholstery company) save time and reduce mis
   },
 };
 
-export default function ProjectPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+// ✅ Correct typing for Next.js App Router props
+interface ProjectPageProps {
+  params: {
+    slug: string;
+  };
+}
+
+export default function ProjectPage({ params }: ProjectPageProps) {
   const project = projects[params.slug];
   if (!project) return notFound();
 
@@ -102,11 +105,15 @@ export default function ProjectPage({
           ))}
         </div>
 
-        {/* Content (rendered as markdown-like text for now) */}
+        {/* Content (rendered as plain paragraphs for now) */}
         <article className="prose prose-blue mt-8 max-w-none">
-          {project.content.split("\n").map((line, i) => (
-            <p key={i}>{line}</p>
-          ))}
+          {project.content
+            .trim()
+            .split("\n")
+            .filter((line) => line.trim() !== "")
+            .map((line, i) => (
+              <p key={i}>{line}</p>
+            ))}
         </article>
 
         {/* Back link */}
