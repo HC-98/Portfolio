@@ -77,13 +77,13 @@ Helped a small business (my dad’s upholstery company) save time and reduce mis
 
 // ✅ Correct typing for Next.js App Router props
 interface ProjectPageProps {
-  params: {
-    slug: string;
-  };
+  params: { slug: string };
 }
-export default function ProjectPage({ params }: { params: { slug: string } }) {
+
+export default function ProjectPage({ params }: ProjectPageProps) {
   const project = projects[params.slug];
   if (!project) return notFound();
+
   return (
     <main className="min-h-screen bg-white text-gray-900 px-6 py-12">
       <div className="max-w-3xl mx-auto">
