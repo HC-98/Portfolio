@@ -81,11 +81,9 @@ interface ProjectPageProps {
     slug: string;
   };
 }
-
-export default function ProjectPage({ params }: ProjectPageProps) {
+export default function ProjectPage({ params }: { params: { slug: string } }) {
   const project = projects[params.slug];
   if (!project) return notFound();
-
   return (
     <main className="min-h-screen bg-white text-gray-900 px-6 py-12">
       <div className="max-w-3xl mx-auto">
