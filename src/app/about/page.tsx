@@ -1,79 +1,113 @@
-// src/app/about/page.tsx
+"use client";
+
+import { motion } from "framer-motion";
+
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-white text-gray-900 px-6 py-12">
-      <div className="max-w-3xl mx-auto">
-        <h1 className="text-4xl font-bold">About Me</h1>
-        <p className="mt-6 text-gray-700 leading-relaxed">
-          Hi, I’m <span className="font-semibold">Hikmet Çilan</span> — a
-          software developer passionate about building{" "}
-          <span className="font-semibold">meaningful software</span>. For me,
-          technology isn’t just about code; it’s about creating solutions that
-          make life easier, more efficient, and sometimes even more spiritual.
-        </p>
+    <main className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 px-6 py-16">
+      <div className="max-w-4xl mx-auto">
+        {/* Hero Intro */}
+        <motion.h1
+          className="text-5xl font-extrabold text-gray-900 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          👋 Hi, I’m <span className="text-blue-600">Hikmet Çilan</span>
+        </motion.h1>
+        <motion.p
+          className="mt-4 text-lg text-gray-700 text-center max-w-2xl mx-auto"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+        >
+          A developer passionate about building{" "}
+          <span className="font-semibold">meaningful software</span> — solutions
+          that simplify life, empower people, and sometimes even support
+          spiritual growth.
+        </motion.p>
 
-        <p className="mt-4 text-gray-700 leading-relaxed">
-          I currently work at <span className="font-semibold">InSpark</span>,
-          where I build modern cloud-native applications using{" "}
-          <span className="font-semibold">.NET, Azure, and React</span>. My work
-          often involves automating processes, integrating APIs, and deploying
-          solutions that scale in real-world environments.
-        </p>
+        {/* Story */}
+        <section className="mt-12 space-y-6 text-gray-700 leading-relaxed">
+          <p>
+            I currently work at{" "}
+            <span className="font-semibold">InSpark</span>, where I build modern
+            cloud-native applications using{" "}
+            <span className="font-semibold">.NET, Azure, and React</span>. My
+            work often involves automating processes, integrating APIs, and
+            deploying solutions that scale in real-world environments.
+          </p>
 
-        <p className="mt-4 text-gray-700 leading-relaxed">
-          Outside of work, I enjoy creating tools that directly impact the
-          people around me. Whether it’s{" "}
-          <span className="italic">a Microsoft Word add-in for Qur’ān study</span>,{" "}
-          <span className="italic">a custom attendance system for teachers</span>, or{" "}
-          <span className="italic">
-            an invoicing bot that helps my dad run his upholstery business
-          </span>
-          — I find a lot of joy in solving problems for my family, community,
-          and faith.
-        </p>
+          <p>
+            Outside of work, I love creating tools that directly impact the
+            people around me. Whether it’s{" "}
+            <span className="italic">a Microsoft Word add-in for Qur’ān study</span>,{" "}
+            <span className="italic">a custom attendance system for teachers</span>, or{" "}
+            <span className="italic">an invoicing bot that helps my dad</span>,
+            I find joy in solving problems for my family, community, and faith.
+          </p>
 
-        <p className="mt-4 text-gray-700 leading-relaxed">
-          I value simplicity, clarity, and solutions that people actually use.
-          My mindset is: <span className="font-semibold">start small, make it
-          useful, and improve it step by step</span>. This approach has helped
-          me grow as a developer and shift my perspective from being overwhelmed
-          by complexity to enjoying the challenge of building systems piece by
-          piece.
-        </p>
+          <p>
+            My mindset is simple:{" "}
+            <span className="font-semibold">
+              start small, make it useful, and improve step by step
+            </span>
+            . This approach has shifted my perspective from being overwhelmed by
+            complexity to enjoying the challenge of building systems piece by
+            piece.
+          </p>
 
-        <p className="mt-4 text-gray-700 leading-relaxed">
-          Beyond coding, I enjoy continuous learning — from cloud development
-          practices to Islamic history and Arabic language. I’m also preparing
-          to guide my family on their first <span className="font-semibold">ʿUmrah</span>,
-          combining my love for technology with my commitment to faith and
-          family life.
-        </p>
+          <p>
+            Beyond coding, I enjoy learning about Islamic history, Arabic, and
+            cooking — blending technology,
+            faith, and family life.
+          </p>
+        </section>
 
-        <h2 className="mt-12 text-2xl font-bold">Skills & Tools</h2>
-        <ul className="mt-4 grid grid-cols-2 gap-2 text-gray-700">
-          <li>⚡ .NET / C#</li>
-          <li>⚡ React / Next.js</li>
-          <li>⚡ Azure Functions</li>
-          <li>⚡ Azure Static Web Apps</li>
-          <li>⚡ GitHub Actions / CI/CD</li>
-          <li>⚡ Office.js / Microsoft 365 APIs</li>
-          <li>⚡ API integrations (Graph, Moneybird, Canvas LMS, etc.)</li>
-          <li>⚡ Tailwind CSS</li>
-        </ul>
+        {/* Skills */}
+        <section className="mt-16">
+          <h2 className="text-3xl font-bold text-gray-900">Skills & Tools</h2>
+          <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-4">
+            {[
+              ".NET / C#",
+              "React / Next.js",
+              "Azure Functions",
+              "Azure Static Web Apps",
+              "GitHub Actions / CI/CD",
+              "Office.js / M365 APIs",
+              "API integrations",
+              "Tailwind CSS",
+            ].map((skill) => (
+              <motion.span
+                key={skill}
+                whileHover={{ scale: 1.05 }}
+                className="px-4 py-2 rounded-lg bg-white shadow text-gray-800 border text-sm font-medium"
+              >
+                ⚡ {skill}
+              </motion.span>
+            ))}
+          </div>
+        </section>
 
-        <h2 className="mt-12 text-2xl font-bold">Values</h2>
-        <p className="mt-4 text-gray-700 leading-relaxed">
-          I believe technology should be{" "}
-          <span className="font-semibold">useful, accessible, and purposeful</span>.
-          My projects often blend professional skills with personal meaning:
-          helping family businesses, supporting community learning, and creating
-          tools that respect cultural and spiritual contexts.
-        </p>
+        {/* Values */}
+        <section className="mt-16">
+          <h2 className="text-3xl font-bold text-gray-900">Values</h2>
+          <p className="mt-4 text-gray-700 leading-relaxed">
+            I believe technology should be{" "}
+            <span className="font-semibold">
+              useful, accessible, and purposeful
+            </span>
+            . My projects blend professional skills with personal meaning:
+            helping family businesses, supporting community learning, and
+            creating tools that respect cultural and spiritual contexts.
+          </p>
+        </section>
 
-        <div className="mt-12">
-          <p className="text-gray-600 italic">
-            “For me, code is not just about lines in a file — it’s about
-            building bridges between ideas, people, and solutions that last.”
+        {/* Quote */}
+        <div className="mt-16 text-center">
+          <p className="text-gray-600 italic text-lg">
+            “Code is not just about lines in a file — it’s about building bridges
+            between ideas, people, and solutions that last.”
           </p>
         </div>
       </div>

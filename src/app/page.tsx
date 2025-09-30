@@ -1,21 +1,56 @@
-// src/app/page.tsx
-import Link from "next/link";
+"use client";
 
-export default function Home() {
+import Link from "next/link";
+import { motion } from "framer-motion";
+
+const featuredProjects = [
+  {
+    slug: "quran-word-addin",
+    title: "Qur’an Word Add-in",
+    summary: "Insert Qur’ān verses & translations in Word with one click.",
+    icon: "📖",
+    gradient: "from-emerald-500 to-teal-500",
+  },
+  {
+    slug: "canvas-attendance",
+    title: "Canvas Attendance System",
+    summary: "Custom attendance tracking built on top of Canvas LMS.",
+    icon: "📊",
+    gradient: "from-indigo-500 to-sky-500",
+  },
+  {
+    slug: "moneybird-telegram",
+    title: "Moneybird Telegram Bot",
+    summary: "Create & send invoices via Telegram for small businesses.",
+    icon: "💸",
+    gradient: "from-orange-500 to-yellow-500",
+  },
+];
+
+export default function HomePage() {
   return (
-    <main className="min-h-screen bg-white text-gray-900">
+    <main className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Hero Section */}
-      <section className="flex flex-col items-center justify-center text-center py-20 px-6">
-        <h1 className="text-5xl font-extrabold tracking-tight sm:text-6xl">
-          Hi, I’m <span className="text-blue-600">Hikmet</span>
-        </h1>
-        <p className="mt-6 text-lg text-gray-600 max-w-2xl">
-          I’m a software developer passionate about building{" "}
-          <span className="font-semibold">meaningful software</span> — from
-          faith-inspired productivity tools to cloud-native apps that solve real
-          problems.
-        </p>
-        <div className="mt-8 flex gap-4">
+      <section className="px-6 py-24 text-center">
+        <motion.h1
+          className="text-6xl font-extrabold text-gray-900"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          Hi, I’m <span className="text-blue-600">Hikmet</span> 👋
+        </motion.h1>
+        <motion.p
+          className="mt-6 text-lg text-gray-700 max-w-2xl mx-auto"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+        >
+          I’m a software developer building cloud-native apps, automation
+          workflows, and tools that solve real-world problems.
+        </motion.p>
+
+        <div className="mt-8 flex justify-center gap-6">
           <Link
             href="/projects"
             className="px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition"
@@ -24,98 +59,68 @@ export default function Home() {
           </Link>
           <Link
             href="/about"
-            className="px-6 py-3 rounded-lg border border-gray-300 text-gray-700 font-medium hover:bg-gray-100 transition"
+            className="px-6 py-3 rounded-lg bg-gray-200 text-gray-900 font-medium hover:bg-gray-300 transition"
           >
             About Me
           </Link>
         </div>
       </section>
 
-      {/* Projects Preview Section */}
-      <section className="py-20 px-6 bg-gray-50">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold text-center">Featured Projects</h2>
-          <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {/* Example project card (replace with dynamic later) */}
-            <div className="p-6 rounded-xl shadow bg-white border hover:shadow-lg transition">
-              <h3 className="text-xl font-semibold">Qur’an Word Add-in</h3>
-              <p className="mt-2 text-gray-600 text-sm">
-                A Microsoft Word add-in to insert Qur’ān verses with translations,
-                deployed via Azure Static Web Apps.
-              </p>
-              <Link
-                href="/projects/quran-word-addin"
-                className="mt-4 inline-block text-blue-600 hover:underline text-sm font-medium"
-              >
-                Read More →
-              </Link>
-            </div>
+      {/* Featured Projects */}
+      <section className="px-6 py-16 max-w-6xl mx-auto">
+        <h2 className="text-3xl font-bold text-center text-gray-900">
+          Featured Projects
+        </h2>
+        <p className="mt-2 text-center text-gray-600">
+          A quick look at what I’ve been building.
+        </p>
 
-            <div className="p-6 rounded-xl shadow bg-white border hover:shadow-lg transition">
-              <h3 className="text-xl font-semibold">
-                Canvas Attendance System
+        <motion.div
+          className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+          initial="hidden"
+          animate="show"
+          variants={{
+            hidden: {},
+            show: { transition: { staggerChildren: 0.15 } },
+          }}
+        >
+          {featuredProjects.map((project) => (
+            <motion.div
+              key={project.slug}
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                show: { opacity: 1, y: 0 },
+              }}
+              whileHover={{ scale: 1.05 }}
+              className="group relative p-6 rounded-2xl shadow-md bg-white border hover:shadow-xl transition cursor-pointer"
+            >
+              {/* Gradient Accent */}
+              <div
+                className={`absolute inset-x-0 top-0 h-1 rounded-t-2xl bg-gradient-to-r ${project.gradient}`}
+              />
+              <div className="text-3xl mb-4">{project.icon}</div>
+              <h3 className="text-lg font-semibold text-gray-900">
+                {project.title}
               </h3>
-              <p className="mt-2 text-gray-600 text-sm">
-                Extended Canvas LMS with custom attendance tracking using React
-                + Azure Functions.
-              </p>
+              <p className="mt-2 text-gray-600 text-sm">{project.summary}</p>
               <Link
-                href="/projects/canvas-attendance"
-                className="mt-4 inline-block text-blue-600 hover:underline text-sm font-medium"
+                href={`/projects/${project.slug}`}
+                className="mt-4 inline-block text-blue-600 group-hover:text-blue-800 hover:underline text-sm font-medium"
               >
                 Read More →
               </Link>
-            </div>
+            </motion.div>
+          ))}
+        </motion.div>
 
-            <div className="p-6 rounded-xl shadow bg-white border hover:shadow-lg transition">
-              <h3 className="text-xl font-semibold">
-                Moneybird Telegram Bot
-              </h3>
-              <p className="mt-2 text-gray-600 text-sm">
-                A secure Telegram bot for my dad’s business to create and send
-                invoices directly from chat.
-              </p>
-              <Link
-                href="/projects/moneybird-telegram"
-                className="mt-4 inline-block text-blue-600 hover:underline text-sm font-medium"
-              >
-                Read More →
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section className="py-20 px-6">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl font-bold">Let’s Connect</h2>
-          <p className="mt-4 text-gray-600">
-            I’m always open to discussing new projects, collaborations, or just
-            sharing knowledge.
-          </p>
-          <div className="mt-6 flex justify-center gap-4">
-            <a
-              href="mailto:hikmetcilan@gmail.com"
-              className="px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition"
-            >
-              Email Me
-            </a>
-            <a
-              href="https://github.com/HC-98"
-              target="_blank"
-              className="px-6 py-3 rounded-lg border border-gray-300 text-gray-700 font-medium hover:bg-gray-100 transition"
-            >
-              GitHub
-            </a>
-            <a
-              href="https://linkedin.com/in/hikmetcilan"
-              target="_blank"
-              className="px-6 py-3 rounded-lg border border-gray-300 text-gray-700 font-medium hover:bg-gray-100 transition"
-            >
-              LinkedIn
-            </a>
-          </div>
+        {/* CTA */}
+        <div className="text-center mt-16">
+          <Link
+            href="/contact"
+            className="px-8 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition"
+          >
+            Get in Touch
+          </Link>
         </div>
       </section>
     </main>
