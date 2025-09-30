@@ -42,6 +42,11 @@ const projects: Record<
   },
 };
 
+// 👇 This tells Next.js which slugs to pre-render
+export function generateStaticParams() {
+  return Object.keys(projects).map((slug) => ({ slug }));
+}
+
 // ✅ async + await params
 export default async function ProjectPage({
   params,
