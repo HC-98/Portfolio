@@ -11,20 +11,20 @@ export default function ContactPage() {
 
         <div className="mt-8 flex flex-col items-center gap-4">
           <a
-            href="mailto:youremail@example.com"
+            href="mailto:hikmetcilan@gmail.com"
             className="px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition"
           >
             Email Me
           </a>
           <a
-            href="https://github.com/yourgithub"
+            href="https://github.com/HC-98"
             target="_blank"
             className="px-6 py-3 rounded-lg border border-gray-300 text-gray-700 font-medium hover:bg-gray-100 transition"
           >
             GitHub
           </a>
           <a
-            href="https://linkedin.com/in/yourlinkedin"
+            href="https://linkedin.com/in/hikmetcilan"
             target="_blank"
             className="px-6 py-3 rounded-lg border border-gray-300 text-gray-700 font-medium hover:bg-gray-100 transition"
           >
