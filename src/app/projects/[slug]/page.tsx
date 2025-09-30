@@ -7,7 +7,7 @@ type Params = { slug: string };
 
 // Next.js App Router expects a props object with `params`
 interface ProjectPageProps {
-  params: Params;
+  params: Promise<{ slug: string }>; // 👈 params is now a Promise
 }
 
 const projects: Record<
@@ -42,8 +42,14 @@ const projects: Record<
   },
 };
 
-export default function ProjectPage({ params }: ProjectPageProps) {
-  const project = projects[params.slug];
+// ✅ async + await params
+export default async function ProjectPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params; // 👈 Await the promise
+  const project = projects[slug];
   if (!project) return notFound();
 
   return (
