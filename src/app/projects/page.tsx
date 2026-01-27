@@ -8,7 +8,7 @@ export default function ProjectsPage() {
   const allProjects = Object.values(projects);
 
   return (
-    <main className="min-h-screen bg-slate-900">
+    <main className="min-h-screen">
       <div className="max-w-6xl mx-auto px-6 py-20">
         {/* Heading */}
         <motion.div
@@ -21,7 +21,7 @@ export default function ProjectsPage() {
             My Projects
           </h1>
           <p className="text-slate-400 text-xl">
-            A collection of meaningful software I've built
+            A collection of meaningful software I&apos;ve built
           </p>
         </motion.div>
 
@@ -101,7 +101,7 @@ export default function ProjectsPage() {
             Interested in Working Together?
           </h2>
           <p className="text-slate-400 text-lg mb-8 max-w-2xl mx-auto">
-            I'm always open to discussing new projects and opportunities.
+            I&apos;m always open to discussing new projects and opportunities.
           </p>
           <Link
             href="/contact"

@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-slate-900">
+    <main className="min-h-screen">
       <div className="max-w-4xl mx-auto px-6 py-20">
         {/* Hero Intro */}
         <motion.div
@@ -15,7 +15,7 @@ export default function AboutPage() {
           className="text-center mb-16"
         >
           <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-6">
-            👋 Hi, I'm <span className="bg-gradient-to-r from-cyan-400 to-blue-600 bg-clip-text text-transparent">Hikmet Çilan</span>
+            👋 Hi, I&apos;m <span className="bg-gradient-to-r from-cyan-400 to-blue-600 bg-clip-text text-transparent">Hikmet Çilan</span>
           </h1>
           <p className="text-xl text-slate-300 max-w-2xl mx-auto">
             A developer passionate about building{" "}
@@ -46,8 +46,8 @@ export default function AboutPage() {
           <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-8 border border-slate-700">
             <p>
               Outside of work, I love creating tools that directly impact the
-              people around me. Whether it's{" "}
-              <span className="text-cyan-400 italic">a Microsoft Word add-in for Qur'ān study</span>,{" "}
+              people around me. Whether it&apos;s{" "}
+              <span className="text-cyan-400 italic">a Microsoft Word add-in for Qur&apos;ān study</span>,{" "}
               <span className="text-cyan-400 italic">a custom attendance system for teachers</span>, or{" "}
               <span className="text-cyan-400 italic">an invoicing bot that helps my dad</span>,
               I find joy in solving problems for my family, community, and faith.
@@ -107,8 +107,8 @@ export default function AboutPage() {
           className="mt-20 text-center"
         >
           <blockquote className="text-slate-400 italic text-xl max-w-3xl mx-auto border-l-4 border-cyan-500 pl-6 py-4">
-            "Code is not just about lines in a file — it's about building bridges
-            between ideas, people, and solutions that last."
+            &ldquo;Code is not just about lines in a file — it&apos;s about building bridges
+            between ideas, people, and solutions that last.&rdquo;
           </blockquote>
         </motion.div>
 

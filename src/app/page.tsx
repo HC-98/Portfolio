@@ -12,7 +12,7 @@ export default function HomePage() {
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <section className="px-6 py-32 text-center bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
+      <section className="px-6 py-32 text-center bg-gradient-to-b from-slate-900/90 via-slate-800/80 to-slate-900/90 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -20,7 +20,7 @@ export default function HomePage() {
           className="max-w-4xl mx-auto"
         >
           <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6">
-            Hi, I'm <span className="bg-gradient-to-r from-cyan-400 to-blue-600 bg-clip-text text-transparent">Hikmet</span> 👋
+            Hi, I&apos;m <span className="bg-gradient-to-r from-cyan-400 to-blue-600 bg-clip-text text-transparent">Hikmet</span> 👋
           </h1>
           <motion.p
             className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-4"
@@ -62,7 +62,7 @@ export default function HomePage() {
       </section>
 
       {/* Featured Projects */}
-      <section className="px-6 py-20 bg-slate-900">
+      <section className="px-6 py-20 bg-slate-900/50 dark:bg-slate-900">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -154,7 +154,7 @@ export default function HomePage() {
       <Experience />
 
       {/* CTA Section */}
-      <section className="px-6 py-20 bg-gradient-to-b from-slate-900 to-slate-950">
+      <section className="px-6 py-20 bg-gradient-to-b from-slate-900/50 to-slate-950/50 dark:from-slate-900 dark:to-slate-950">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -163,10 +163,10 @@ export default function HomePage() {
           className="max-w-3xl mx-auto text-center"
         >
           <h2 className="text-4xl font-bold text-white mb-4">
-            Let's Work Together
+            Let&apos;s Work Together
           </h2>
           <p className="text-slate-400 text-lg mb-8">
-            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+            I&apos;m always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link

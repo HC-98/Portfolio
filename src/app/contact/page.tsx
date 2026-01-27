@@ -29,7 +29,7 @@ export default function ContactPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-slate-900">
+    <main className="min-h-screen">
       <div className="max-w-4xl mx-auto px-6 py-20">
         {/* Header */}
         <motion.div
@@ -42,7 +42,7 @@ export default function ContactPage() {
             Get in Touch
           </h1>
           <p className="text-xl text-slate-300 max-w-2xl mx-auto">
-            I'm always open to new opportunities, collaborations, or simply
+            I&apos;m always open to new opportunities, collaborations, or simply
             connecting with other developers and tech enthusiasts.
           </p>
         </motion.div>

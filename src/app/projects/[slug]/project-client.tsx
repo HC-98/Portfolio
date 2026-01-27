@@ -6,7 +6,7 @@ import { Project } from "@/types";
 
 export default function ProjectClient({ project }: { project: Project }) {
   return (
-    <main className="min-h-screen bg-slate-900">
+    <main className="min-h-screen">
       <div className="max-w-4xl mx-auto px-6 py-20">
         <Link href="/projects" className="inline-flex items-center text-slate-400 hover:text-cyan-400 transition-colors mb-8">
           <span className="mr-2">←</span> Back to Projects
