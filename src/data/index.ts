@@ -9,6 +9,7 @@ export const projects: Record<string, Project> = {
     icon: "📖",
     gradient: "from-emerald-500 to-teal-500",
     techStack: ["TypeScript", "React", "Office.js", "Azure Static Web Apps", "Tailwind CSS"],
+    images: ["/quran1.png", "/quran2.png", "/quran3.png"],
     features: [
       "Search verses by surah and ayah number",
       "Multiple translation options",

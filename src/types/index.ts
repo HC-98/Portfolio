@@ -7,6 +7,7 @@ export interface Project {
   gradient: string;
   techStack: string[];
   features: string[];
+  images?: string[];
   challenges?: string;
   learnings?: string;
   github?: string;

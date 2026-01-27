@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { projects, featuredProjectSlugs } from "@/data";
 import Skills from "@/components/Skills";
 import Experience from "@/components/Experience";
@@ -103,8 +104,22 @@ export default function HomePage() {
                   className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${project.gradient}`}
                 />
                 
+                {/* Image Preview */}
+                {project.images && project.images.length > 0 && (
+                  <div className="relative h-48 bg-slate-900 overflow-hidden">
+                    <Image
+                      src={project.images[0]}
+                      alt={project.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-800/90 to-transparent" />
+                    <div className="absolute bottom-4 left-4 text-5xl">{project.icon}</div>
+                  </div>
+                )}
+                
                 <div className="p-6">
-                  <div className="text-4xl mb-4">{project.icon}</div>
+                  {!project.images && <div className="text-4xl mb-4">{project.icon}</div>}
                   <h3 className="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">
                     {project.title}
                   </h3>
