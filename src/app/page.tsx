@@ -2,126 +2,188 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-
-const featuredProjects = [
-  {
-    slug: "quran-word-addin",
-    title: "Qur’an Word Add-in",
-    summary: "Insert Qur’ān verses & translations in Word with one click.",
-    icon: "📖",
-    gradient: "from-emerald-500 to-teal-500",
-  },
-  {
-    slug: "canvas-attendance",
-    title: "Canvas Attendance System",
-    summary: "Custom attendance tracking built on top of Canvas LMS.",
-    icon: "📊",
-    gradient: "from-indigo-500 to-sky-500",
-  },
-  {
-    slug: "moneybird-telegram",
-    title: "Moneybird Telegram Bot",
-    summary: "Create & send invoices via Telegram for small businesses.",
-    icon: "💸",
-    gradient: "from-orange-500 to-yellow-500",
-  },
-];
+import { projects, featuredProjectSlugs } from "@/data";
+import Skills from "@/components/Skills";
+import Experience from "@/components/Experience";
 
 export default function HomePage() {
+  const featuredProjects = featuredProjectSlugs.map(slug => projects[slug]);
+
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <main className="min-h-screen">
       {/* Hero Section */}
-      <section className="px-6 py-24 text-center">
-        <motion.h1
-          className="text-6xl font-extrabold text-gray-900"
+      <section className="px-6 py-32 text-center bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-4xl mx-auto"
         >
-          Hi, I’m <span className="text-blue-600">Hikmet</span> 👋
-        </motion.h1>
-        <motion.p
-          className="mt-6 text-lg text-gray-700 max-w-2xl mx-auto"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-        >
-          I’m a software developer building cloud-native apps, automation
-          workflows, and tools that solve real-world problems.
-        </motion.p>
+          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6">
+            Hi, I'm <span className="bg-gradient-to-r from-cyan-400 to-blue-600 bg-clip-text text-transparent">Hikmet</span> 👋
+          </h1>
+          <motion.p
+            className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+          >
+            Full-Stack Developer specializing in .NET & Azure
+          </motion.p>
+          <motion.p
+            className="text-lg text-slate-400 max-w-2xl mx-auto mb-12"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+          >
+            Building cloud-native applications, automation workflows, and tools that solve real-world problems.
+          </motion.p>
 
-        <div className="mt-8 flex justify-center gap-6">
-          <Link
-            href="/projects"
-            className="px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition"
+          <motion.div
+            className="flex flex-col sm:flex-row justify-center gap-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.7 }}
           >
-            View Projects
-          </Link>
-          <Link
-            href="/about"
-            className="px-6 py-3 rounded-lg bg-gray-200 text-gray-900 font-medium hover:bg-gray-300 transition"
-          >
-            About Me
-          </Link>
-        </div>
+            <Link
+              href="/projects"
+              className="px-8 py-4 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold hover:from-cyan-600 hover:to-blue-700 transition-all shadow-lg hover:shadow-cyan-500/50"
+            >
+              View Projects
+            </Link>
+            <Link
+              href="/contact"
+              className="px-8 py-4 rounded-lg bg-slate-800 text-white font-semibold hover:bg-slate-700 transition-all border border-slate-700 hover:border-cyan-500"
+            >
+              Get in Touch
+            </Link>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* Featured Projects */}
-      <section className="px-6 py-16 max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-center text-gray-900">
-          Featured Projects
-        </h2>
-        <p className="mt-2 text-center text-gray-600">
-          A quick look at what I’ve been building.
-        </p>
-
-        <motion.div
-          className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
-          initial="hidden"
-          animate="show"
-          variants={{
-            hidden: {},
-            show: { transition: { staggerChildren: 0.15 } },
-          }}
-        >
-          {featuredProjects.map((project) => (
-            <motion.div
-              key={project.slug}
-              variants={{
-                hidden: { opacity: 0, y: 30 },
-                show: { opacity: 1, y: 0 },
-              }}
-              whileHover={{ scale: 1.05 }}
-              className="group relative p-6 rounded-2xl shadow-md bg-white border hover:shadow-xl transition cursor-pointer"
-            >
-              {/* Gradient Accent */}
-              <div
-                className={`absolute inset-x-0 top-0 h-1 rounded-t-2xl bg-gradient-to-r ${project.gradient}`}
-              />
-              <div className="text-3xl mb-4">{project.icon}</div>
-              <h3 className="text-lg font-semibold text-gray-900">
-                {project.title}
-              </h3>
-              <p className="mt-2 text-gray-600 text-sm">{project.summary}</p>
-              <Link
-                href={`/projects/${project.slug}`}
-                className="mt-4 inline-block text-blue-600 group-hover:text-blue-800 hover:underline text-sm font-medium"
-              >
-                Read More →
-              </Link>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* CTA */}
-        <div className="text-center mt-16">
-          <Link
-            href="/contact"
-            className="px-8 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition"
+      <section className="px-6 py-20 bg-slate-900">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
           >
-            Get in Touch
-          </Link>
+            <h2 className="text-4xl font-bold text-slate-100 mb-4">
+              Featured Projects
+            </h2>
+            <p className="text-slate-400 text-lg">
+              A selection of my recent work
+            </p>
+          </motion.div>
+
+          <motion.div
+            className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: 0.15 } },
+            }}
+          >
+            {featuredProjects.map((project) => (
+              <motion.div
+                key={project.slug}
+                variants={{
+                  hidden: { opacity: 0, y: 30 },
+                  show: { opacity: 1, y: 0 },
+                }}
+                className="group relative overflow-hidden rounded-xl bg-slate-800/50 backdrop-blur-sm border border-slate-700 hover:border-cyan-500/50 transition-all duration-300"
+              >
+                {/* Gradient Accent */}
+                <div
+                  className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${project.gradient}`}
+                />
+                
+                <div className="p-6">
+                  <div className="text-4xl mb-4">{project.icon}</div>
+                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-slate-400 text-sm mb-4 line-clamp-2">
+                    {project.summary}
+                  </p>
+                  
+                  {/* Tech Stack */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.techStack.slice(0, 3).map((tech) => (
+                      <span
+                        key={tech}
+                        className="text-xs px-2 py-1 bg-slate-900 text-slate-400 rounded border border-slate-700"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    className="inline-flex items-center text-cyan-400 hover:text-cyan-300 text-sm font-medium group-hover:gap-2 transition-all"
+                  >
+                    Learn More
+                    <span className="ml-1 group-hover:translate-x-1 transition-transform">→</span>
+                  </Link>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          <div className="text-center mt-12">
+            <Link
+              href="/projects"
+              className="inline-block px-8 py-3 rounded-lg bg-slate-800 text-white font-medium hover:bg-slate-700 transition-all border border-slate-700 hover:border-cyan-500"
+            >
+              View All Projects
+            </Link>
+          </div>
         </div>
+      </section>
+
+      {/* Skills Section */}
+      <Skills />
+
+      {/* Experience Section */}
+      <Experience />
+
+      {/* CTA Section */}
+      <section className="px-6 py-20 bg-gradient-to-b from-slate-900 to-slate-950">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-3xl mx-auto text-center"
+        >
+          <h2 className="text-4xl font-bold text-white mb-4">
+            Let's Work Together
+          </h2>
+          <p className="text-slate-400 text-lg mb-8">
+            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Link
+              href="/contact"
+              className="px-8 py-4 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold hover:from-cyan-600 hover:to-blue-700 transition-all shadow-lg hover:shadow-cyan-500/50"
+            >
+              Get in Touch
+            </Link>
+            <a
+              href="/Hikmet Cilan Resume.pdf"
+              download
+              className="px-8 py-4 rounded-lg bg-slate-800 text-white font-semibold hover:bg-slate-700 transition-all border border-slate-700 hover:border-cyan-500"
+            >
+              Download Resume
+            </a>
+          </div>
+        </motion.div>
       </section>
     </main>
   );

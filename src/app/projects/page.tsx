@@ -2,93 +2,113 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-
-const projects = [
-  {
-    slug: "quran-word-addin",
-    title: "Qur’an Word Add-in",
-    summary:
-      "Microsoft Word add-in to insert Qur’ān verses with translations, deployed via Azure Static Web Apps.",
-    icon: "📖",
-    gradient: "from-emerald-500 to-teal-500",
-  },
-  {
-    slug: "canvas-attendance",
-    title: "Canvas Attendance System",
-    summary:
-      "Extended Canvas LMS with custom attendance tracking using React + Azure Functions.",
-    icon: "📊",
-    gradient: "from-indigo-500 to-sky-500",
-  },
-  {
-    slug: "moneybird-telegram",
-    title: "Moneybird Telegram Bot",
-    summary:
-      "Secure Telegram bot for small business invoicing via Moneybird API.",
-    icon: "💸",
-    gradient: "from-orange-500 to-yellow-500",
-  },
-];
+import { projects } from "@/data";
 
 export default function ProjectsPage() {
+  const allProjects = Object.values(projects);
+
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 px-6 py-16">
-      <div className="max-w-6xl mx-auto">
+    <main className="min-h-screen bg-slate-900">
+      <div className="max-w-6xl mx-auto px-6 py-20">
         {/* Heading */}
-        <h1 className="text-5xl font-extrabold text-center text-gray-900">
-          My Projects
-        </h1>
-        <p className="mt-4 text-gray-600 text-center text-lg">
-          A collection of meaningful software I’ve built.
-        </p>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-4">
+            My Projects
+          </h1>
+          <p className="text-slate-400 text-xl">
+            A collection of meaningful software I've built
+          </p>
+        </motion.div>
 
         {/* Projects Grid */}
         <motion.div
-          className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
           initial="hidden"
           animate="show"
           variants={{
             hidden: {},
-            show: {
-              transition: {
-                staggerChildren: 0.15,
-              },
-            },
+            show: { transition: { staggerChildren: 0.1 } },
           }}
         >
-          {projects.map((project) => (
+          {allProjects.map((project) => (
             <motion.div
               key={project.slug}
               variants={{
                 hidden: { opacity: 0, y: 30 },
                 show: { opacity: 1, y: 0 },
               }}
-              whileHover={{ scale: 1.05 }}
-              className="group relative p-6 rounded-2xl shadow-md bg-white border hover:shadow-xl transition cursor-pointer"
+              className="group relative overflow-hidden rounded-xl bg-slate-800/50 backdrop-blur-sm border border-slate-700 hover:border-cyan-500/50 transition-all duration-300"
             >
               {/* Gradient Accent */}
               <div
-                className={`absolute inset-x-0 top-0 h-1 rounded-t-2xl bg-gradient-to-r ${project.gradient}`}
+                className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${project.gradient}`}
               />
 
-              {/* Icon */}
-              <div className="text-3xl mb-4">{project.icon}</div>
+              <div className="p-6">
+                <div className="text-4xl mb-4">{project.icon}</div>
+                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">
+                  {project.title}
+                </h3>
+                <p className="text-slate-400 text-sm mb-4">
+                  {project.summary}
+                </p>
 
-              {/* Title */}
-              <h2 className="text-xl font-semibold text-gray-900">
-                {project.title}
-              </h2>
-              <p className="mt-2 text-gray-600 text-sm">{project.summary}</p>
+                {/* Tech Stack Preview */}
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.techStack.slice(0, 3).map((tech) => (
+                    <span
+                      key={tech}
+                      className="text-xs px-2 py-1 bg-slate-900 text-slate-400 rounded border border-slate-700"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                  {project.techStack.length > 3 && (
+                    <span className="text-xs px-2 py-1 text-slate-500">
+                      +{project.techStack.length - 3} more
+                    </span>
+                  )}
+                </div>
 
-              {/* Link */}
-              <Link
-                href={`/projects/${project.slug}`}
-                className="mt-4 inline-block text-blue-600 group-hover:text-blue-800 hover:underline text-sm font-medium"
-              >
-                Read More →
-              </Link>
+                <Link
+                  href={`/projects/${project.slug}`}
+                  className="inline-flex items-center text-cyan-400 hover:text-cyan-300 text-sm font-medium group-hover:gap-2 transition-all"
+                >
+                  View Details
+                  <span className="ml-1 group-hover:translate-x-1 transition-transform">
+                    →
+                  </span>
+                </Link>
+              </div>
             </motion.div>
           ))}
+        </motion.div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-20 text-center bg-slate-800/50 backdrop-blur-sm rounded-xl p-12 border border-slate-700"
+        >
+          <h2 className="text-3xl font-bold text-white mb-4">
+            Interested in Working Together?
+          </h2>
+          <p className="text-slate-400 text-lg mb-8 max-w-2xl mx-auto">
+            I'm always open to discussing new projects and opportunities.
+          </p>
+          <Link
+            href="/contact"
+            className="inline-block px-8 py-4 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold hover:from-cyan-600 hover:to-blue-700 transition-all shadow-lg hover:shadow-cyan-500/50"
+          >
+            Get in Touch
+          </Link>
         </motion.div>
       </div>
     </main>
