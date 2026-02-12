@@ -1,4 +1,4 @@
-name: Deploy Watermarker to Azure
+name: Deploy Watermarker to Azure (Federated Credentials - OIDC)
 
 # Trigger only when watermarker folder changes
 on:
@@ -8,41 +8,14 @@ on:
     paths:
       - 'watermarker/**'
   workflow_dispatch:
-    inputs:
-      force_deploy:
-        description: 'Force deploy watermarker'
-        required: false
-        default: 'false'
+
+# Required for OIDC
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
-  check-changes:
-    runs-on: ubuntu-latest
-    outputs:
-      watermarker_changed: ${{ steps.changes.outputs.watermarker }}
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 2
-      
-      - name: Check for changes in watermarker folder
-        id: changes
-        run: |
-          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
-            echo "watermarker=true" >> $GITHUB_OUTPUT
-          else
-            git diff --name-only HEAD^ HEAD > changes.txt
-            if grep -q "^watermarker/" changes.txt; then
-              echo "watermarker=true" >> $GITHUB_OUTPUT
-              echo "Changes detected in watermarker folder"
-            else
-              echo "watermarker=false" >> $GITHUB_OUTPUT
-              echo "No changes in watermarker folder"
-            fi
-          fi
-
   deploy-watermarker:
-    needs: check-changes
-    if: needs.check-changes.outputs.watermarker_changed == 'true'
     runs-on: ubuntu-latest
     
     steps:
@@ -51,17 +24,21 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.11'
+        python-version: '3.14'
     
-    - name: Install dependencies
-      working-directory: ./watermarker
+    - name: Login to Azure using OIDC
+      uses: azure/login@v1
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    
+    - name: Configure Azure to install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        az webapp config appsettings set --name watermarker --resource-group Private --settings ENABLE_ORYX_BUILD=true SCM_DO_BUILD_DURING_DEPLOYMENT=true
     
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
-        app-name: 'watermarker-hikmet'  # Change to your Azure app name
-        publish-profile: ${{ secrets.AZURE_WATERMARKER_PUBLISH_PROFILE }}
+        app-name: 'watermarker'  # Change to your app name
         package: ./watermarker
