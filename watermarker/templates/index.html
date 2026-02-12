@@ -127,6 +127,8 @@
             transition: all 0.3s ease;
             background: #f8fafc;
             cursor: pointer;
+            -webkit-tap-highlight-color: rgba(79, 70, 229, 0.1);
+            touch-action: manipulation;
         }
         
         .file-input-container:hover {
@@ -140,6 +142,10 @@
             transform: scale(1.01);
         }
         
+        .file-input-container:active {
+            transform: scale(0.99);
+        }
+        
         input[type="file"] {
             position: absolute;
             width: 100%;
@@ -148,6 +154,22 @@
             left: 0;
             opacity: 0;
             cursor: pointer;
+            z-index: 10;
+        }
+        
+        .file-browse-btn {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            pointer-events: none;
         }
         
         .file-icon {
@@ -280,6 +302,27 @@
             h1 {
                 font-size: 1.8em;
             }
+            
+            .file-input-container {
+                padding: 24px 16px;
+                min-height: 200px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            
+            .file-icon {
+                font-size: 40px;
+            }
+            
+            .file-text {
+                font-size: 0.95em;
+            }
+            
+            .file-subtext {
+                font-size: 0.8em;
+            }
         }
     </style>
 </head>
@@ -311,10 +354,11 @@
                     <div class="file-icon">📁</div>
                     <div class="file-text">Click to browse or drag & drop</div>
                     <div class="file-subtext">PDF files only • Max 50MB</div>
+                    <div class="file-browse-btn" id="browseBtn">Browse Files</div>
                     <input type="file" 
                            id="pdf_file" 
                            name="pdf_file" 
-                           accept=".pdf" 
+                           accept=".pdf,application/pdf" 
                            required>
                 </div>
                 <div class="file-selected" id="fileSelected"></div>
@@ -354,6 +398,23 @@
         const fileDropZone = document.getElementById('fileDropZone');
         const fileSelected = document.getElementById('fileSelected');
         const submitBtn = document.getElementById('submitBtn');
+        
+        // Click anywhere on the drop zone to trigger file input
+        fileDropZone.addEventListener('click', function(e) {
+            // Don't trigger if clicking directly on the input itself
+            if (e.target !== fileInput) {
+                e.preventDefault();
+                fileInput.click();
+            }
+        });
+        
+        // Touch event for mobile devices
+        fileDropZone.addEventListener('touchend', function(e) {
+            if (e.target !== fileInput) {
+                e.preventDefault();
+                fileInput.click();
+            }
+        }, { passive: false });
         
         // File input change handler
         fileInput.addEventListener('change', function(e) {
