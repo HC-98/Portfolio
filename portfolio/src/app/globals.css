@@ -31,12 +31,35 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+}
+
+nav,
+footer {
+  position: relative;
+  z-index: 10;
+  background: inherit;
 }
 
 :root.light body,
 :root.light main {
-  background: #f8fafc;
+  background: transparent;
   color: #0f172a;
+}
+
+:root.light body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: #f8fafc;
+  z-index: -1;
 }
 
 :root.dark body,
@@ -49,27 +72,28 @@ main {
 
 /* Light theme specific overrides */
 :root.light {
-  /* Background colors - main sections */
+  /* Background colors - main sections - make transparent to show animated bg */
   & .bg-slate-900,
   & .bg-slate-900\/50,
   & .bg-slate-900\/90 {
-    background-color: rgb(255 255 255) !important;
+    background-color: transparent !important;
   }
   
-  /* Background colors - cards */
-  & .bg-slate-800,
-  & .bg-slate-800\/50,
-  & .bg-slate-800\/80 {
-    background-color: rgb(255 255 255) !important;
-  }
-  
-  /* Background colors - darker sections */
+  /* Background colors - darker sections - slightly tinted */
   & .bg-slate-950,
   & .bg-slate-950\/50 {
-    background-color: rgb(248 250 252) !important;
+    background-color: rgba(248, 250, 252, 0.5) !important;
   }
   
-  /* Background colors - secondary buttons */
+  /* Background colors - cards - keep white for contrast */
+  & .rounded-xl.bg-slate-800,
+  & .rounded-2xl.bg-slate-800,
+  & .rounded-lg.bg-slate-800 {
+    background-color: rgb(255 255 255) !important;
+  }
+  
+  /* Buttons */
+  & .bg-slate-800:not(.rounded-xl):not(.rounded-2xl),
   & .bg-slate-700 {
     background-color: rgb(241 245 249) !important;
     color: rgb(15 23 42) !important;
@@ -147,8 +171,8 @@ main {
   
   /* Add subtle shadows to cards for depth in light mode */
   & .bg-slate-800,
-  & .bg-slate-800/50,
-  & .bg-slate-800/80 {
+  & .bg-slate-800\/50,
+  & .bg-slate-800\/80 {
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1) !important;
   }
 }
@@ -199,4 +223,25 @@ main {
 :root.light ::selection {
   background: rgba(34, 211, 238, 0.4);
   color: #0f172a;
+}
+
+/* Floating Animation for Dev Icons */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-25px) translateX(10px) rotate(3deg);
+  }
+  50% {
+    transform: translateY(-50px) translateX(-10px) rotate(-3deg);
+  }
+  75% {
+    transform: translateY(-25px) translateX(15px) rotate(2deg);
+  }
+}
+
+.animate-float {
+  animation: float 30s ease-in-out infinite;
+  will-change: transform;
 }
