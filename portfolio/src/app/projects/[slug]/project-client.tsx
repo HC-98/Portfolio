@@ -21,17 +21,16 @@ export default function ProjectClient({ project }: { project: Project }) {
             <div className="flex items-center gap-4 mb-4">
               <span className="text-6xl">{project.icon}</span>
               <div>
-                <h1 className="text-4xl md:text-5xl font-extrabold text-white">{project.title}</h1>
+                <h1 className="text-4xl md:text-5xl font-bold text-white">{project.title}</h1>
                 <p className="text-slate-400 text-lg mt-2">{project.summary}</p>
               </div>
             </div>
-            <div className={`h-2 rounded-full bg-gradient-to-r ${project.gradient} mt-6`} />
           </div>
 
           {/* Image Gallery */}
           {project.images && project.images.length > 0 && (
             <div className="mb-12">
-              <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-2 border border-slate-700">
+              <div className="bg-slate-800 rounded-xl p-2 border border-slate-700">
                 <div className="relative aspect-video rounded-lg overflow-hidden bg-slate-900">
                   <Image
                     src={project.images[selectedImage]}
@@ -76,11 +75,11 @@ export default function ProjectClient({ project }: { project: Project }) {
               ))}
             </div>
           </div>
-          <div className="mb-12 bg-slate-800/50 backdrop-blur-sm rounded-xl p-8 border border-slate-700">
+          <div className="mb-12 bg-slate-800 rounded-xl p-8 border border-slate-700">
             <h2 className="text-2xl font-bold text-white mb-4">About</h2>
             <p className="text-slate-300 leading-relaxed text-lg">{project.description}</p>
           </div>
-          <div className="mb-12 bg-slate-800/50 backdrop-blur-sm rounded-xl p-8 border border-slate-700">
+          <div className="mb-12 bg-slate-800 rounded-xl p-8 border border-slate-700">
             <h2 className="text-2xl font-bold text-white mb-6">Key Features</h2>
             <ul className="space-y-3">
               {project.features.map((feature, idx) => (
@@ -94,13 +93,13 @@ export default function ProjectClient({ project }: { project: Project }) {
           {(project.challenges || project.learnings) && (
             <div className="grid md:grid-cols-2 gap-6 mb-12">
               {project.challenges && (
-                <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-8 border border-slate-700">
+                <div className="bg-slate-800 rounded-xl p-8 border border-slate-700">
                   <h2 className="text-xl font-bold text-white mb-4">Challenges</h2>
                   <p className="text-slate-300 leading-relaxed">{project.challenges}</p>
                 </div>
               )}
               {project.learnings && (
-                <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-8 border border-slate-700">
+                <div className="bg-slate-800 rounded-xl p-8 border border-slate-700">
                   <h2 className="text-xl font-bold text-white mb-4">What I Learned</h2>
                   <p className="text-slate-300 leading-relaxed">{project.learnings}</p>
                 </div>

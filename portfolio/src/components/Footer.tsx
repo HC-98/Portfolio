@@ -13,9 +13,9 @@ export default function Footer() {
           <div className="col-span-1 md:col-span-2">
             <Link href="/" className="inline-flex items-center gap-3 mb-4">
               <div className="relative w-10 h-10">
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-lg rotate-6"></div>
-                <div className="absolute inset-0 bg-slate-900 rounded-lg flex items-center justify-center">
-                  <span className="text-lg font-bold bg-gradient-to-br from-cyan-400 to-blue-600 bg-clip-text text-transparent">
+                <div className="absolute inset-0 bg-cyan-500 rounded-lg"></div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-lg font-bold text-slate-900">
                     HC
                   </span>
                 </div>

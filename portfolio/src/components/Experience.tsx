@@ -5,7 +5,7 @@ import { experiences } from "@/data";
 
 export default function Experience() {
   return (
-    <section className="py-20 px-6 bg-slate-900/20 dark:bg-slate-900/30">
+    <section className="py-20 px-6 bg-slate-950 dark:bg-slate-950 border-t border-slate-800">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -39,7 +39,7 @@ export default function Experience() {
               )}
 
               {/* Content */}
-              <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-slate-700">
+              <div className="bg-slate-800 rounded-xl p-6 border border-slate-700">
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
                   <div>
                     <h3 className="text-xl font-bold text-white mb-1">

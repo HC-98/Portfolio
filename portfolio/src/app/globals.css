@@ -85,11 +85,6 @@ main {
   & .border-slate-800 {
     border-color: rgb(226 232 240) !important;
   }
-  
-  & .bg-gradient-to-b,
-  & .bg-gradient-to-br {
-    background: linear-gradient(to bottom, rgb(248 250 252), rgb(241 245 249)) !important;
-  }
 }
 
 /* Custom Scrollbar */

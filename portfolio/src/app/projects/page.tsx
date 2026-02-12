@@ -18,7 +18,7 @@ export default function ProjectsPage() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-4">
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
             My Projects
           </h1>
           <p className="text-slate-400 text-xl">
@@ -43,12 +43,8 @@ export default function ProjectsPage() {
                 hidden: { opacity: 0, y: 30 },
                 show: { opacity: 1, y: 0 },
               }}
-              className="group relative overflow-hidden rounded-xl bg-slate-800/50 backdrop-blur-sm border border-slate-700 hover:border-cyan-500/50 transition-all duration-300"
+              className="group relative overflow-hidden rounded-xl bg-slate-800 border border-slate-700 hover:border-cyan-500 transition-all duration-300"
             >
-              {/* Gradient Accent */}
-              <div
-                className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${project.gradient}`}
-              />
 
               {/* Image Preview */}
               {project.images && project.images.length > 0 && (
@@ -59,7 +55,6 @@ export default function ProjectsPage() {
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-800/90 to-transparent" />
                   <div className="absolute bottom-4 left-4 text-5xl">{project.icon}</div>
                 </div>
               )}
@@ -110,7 +105,7 @@ export default function ProjectsPage() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-20 text-center bg-slate-800/50 backdrop-blur-sm rounded-xl p-12 border border-slate-700"
+          className="mt-20 text-center bg-slate-800 rounded-xl p-12 border border-slate-700"
         >
           <h2 className="text-3xl font-bold text-white mb-4">
             Interested in Working Together?
@@ -120,7 +115,7 @@ export default function ProjectsPage() {
           </p>
           <Link
             href="/contact"
-            className="inline-block px-8 py-4 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold hover:from-cyan-600 hover:to-blue-700 transition-all shadow-lg hover:shadow-cyan-500/50"
+            className="inline-block px-8 py-4 rounded-lg bg-cyan-500 text-white font-semibold hover:bg-cyan-600 transition-all"
           >
             Get in Touch
           </Link>

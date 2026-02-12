@@ -28,14 +28,12 @@ const tools = [
 
 export default function ToolsPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
+    <main className="min-h-screen bg-slate-900">
       <div className="max-w-7xl mx-auto px-6 py-20">
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-              Built Tools
-            </span>
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
+            Built Tools
           </h1>
           <p className="text-xl text-slate-300 max-w-3xl mx-auto">
             Practical web tools and utilities I&apos;ve created to solve real-world problems.
@@ -48,10 +46,8 @@ export default function ToolsPage() {
           {tools.map((tool) => (
             <div
               key={tool.id}
-              className="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl border border-slate-700 hover:border-cyan-500/50 transition-all duration-300 overflow-hidden"
+              className="group relative bg-slate-800 rounded-2xl border border-slate-700 hover:border-cyan-500 transition-all duration-300 overflow-hidden"
             >
-              {/* Gradient Background */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${tool.bgGradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}></div>
               
               {/* Status Badge */}
               <div className="absolute top-4 right-4 z-10">
@@ -65,7 +61,7 @@ export default function ToolsPage() {
                 <div className="flex items-start gap-4 mb-4">
                   <div className="text-5xl">{tool.icon}</div>
                   <div className="flex-1">
-                    <h2 className="text-2xl font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-cyan-400 group-hover:to-blue-500 group-hover:bg-clip-text transition-all">
+                    <h2 className="text-2xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">
                       {tool.name}
                     </h2>
                     <p className="text-slate-300 text-sm leading-relaxed">
@@ -108,7 +104,7 @@ export default function ToolsPage() {
                   href={tool.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/50"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-cyan-500 hover:bg-cyan-600 text-white font-semibold rounded-lg transition-all duration-300"
                 >
                   <span>Open Tool</span>
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

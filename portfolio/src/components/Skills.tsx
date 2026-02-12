@@ -21,7 +21,7 @@ export default function Skills() {
   }, {} as Record<string, typeof skills>);
 
   return (
-    <section className="py-20 px-6 bg-slate-800/30 dark:bg-slate-900/30">
+    <section className="py-20 px-6 bg-slate-900 dark:bg-slate-900 border-t border-slate-800">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -46,9 +46,9 @@ export default function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-slate-700"
+              className="bg-slate-800 rounded-xl p-6 border border-slate-700"
             >
-              <h3 className="text-xl font-semibold text-cyan-400 mb-4">
+              <h3 className="text-xl font-semibold text-white mb-4">
                 {categoryLabels[category as keyof typeof categoryLabels]}
               </h3>
               <div className="flex flex-wrap gap-2">

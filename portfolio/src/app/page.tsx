@@ -13,15 +13,15 @@ export default function HomePage() {
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <section className="px-6 py-32 text-center bg-gradient-to-b from-slate-900/90 via-slate-800/80 to-slate-900/90 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+      <section className="px-6 py-32 text-center bg-slate-900 dark:bg-slate-900">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="max-w-4xl mx-auto"
         >
-          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6">
-            Hi, I&apos;m <span className="bg-gradient-to-r from-cyan-400 to-blue-600 bg-clip-text text-transparent">Hikmet</span> 👋
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
+            Hi, I&apos;m <span className="text-cyan-400">Hikmet</span> 👋
           </h1>
           <motion.p
             className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-4"
@@ -48,19 +48,19 @@ export default function HomePage() {
           >
             <Link
               href="/projects"
-              className="px-8 py-4 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold hover:from-cyan-600 hover:to-blue-700 transition-all shadow-lg hover:shadow-cyan-500/50"
+              className="px-8 py-4 rounded-lg bg-cyan-500 text-white font-semibold hover:bg-cyan-600 transition-all"
             >
               View Projects
             </Link>
             <Link
               href="/tools"
-              className="px-8 py-4 rounded-lg bg-gradient-to-r from-purple-500 to-pink-600 text-white font-semibold hover:from-purple-600 hover:to-pink-700 transition-all shadow-lg hover:shadow-purple-500/50"
+              className="px-8 py-4 rounded-lg bg-slate-700 text-white font-semibold hover:bg-slate-600 transition-all"
             >
               Explore Tools
             </Link>
             <Link
               href="/contact"
-              className="px-8 py-4 rounded-lg bg-slate-800 text-white font-semibold hover:bg-slate-700 transition-all border border-slate-700 hover:border-cyan-500"
+              className="px-8 py-4 rounded-lg bg-slate-800 text-white font-semibold hover:bg-slate-700 transition-all border border-slate-700 hover:border-slate-600"
             >
               Get in Touch
             </Link>
@@ -69,7 +69,7 @@ export default function HomePage() {
       </section>
 
       {/* Featured Projects */}
-      <section className="px-6 py-20 bg-slate-900/50 dark:bg-slate-900">
+      <section className="px-6 py-20 bg-slate-950 dark:bg-slate-950">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -103,12 +103,8 @@ export default function HomePage() {
                   hidden: { opacity: 0, y: 30 },
                   show: { opacity: 1, y: 0 },
                 }}
-                className="group relative overflow-hidden rounded-xl bg-slate-800/50 backdrop-blur-sm border border-slate-700 hover:border-cyan-500/50 transition-all duration-300"
+                className="group relative overflow-hidden rounded-xl bg-slate-800 border border-slate-700 hover:border-cyan-500 transition-all duration-300"
               >
-                {/* Gradient Accent */}
-                <div
-                  className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${project.gradient}`}
-                />
                 
                 {/* Image Preview */}
                 {project.images && project.images.length > 0 && (
@@ -175,7 +171,7 @@ export default function HomePage() {
       <Experience />
 
       {/* CTA Section */}
-      <section className="px-6 py-20 bg-gradient-to-b from-slate-900/50 to-slate-950/50 dark:from-slate-900 dark:to-slate-950">
+      <section className="px-6 py-20 bg-slate-900 dark:bg-slate-900 border-t border-slate-800">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -192,14 +188,14 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link
               href="/contact"
-              className="px-8 py-4 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold hover:from-cyan-600 hover:to-blue-700 transition-all shadow-lg hover:shadow-cyan-500/50"
+              className="px-8 py-4 rounded-lg bg-cyan-500 text-white font-semibold hover:bg-cyan-600 transition-all"
             >
               Get in Touch
             </Link>
             <a
               href="/Hikmet Cilan Resume.pdf"
               download
-              className="px-8 py-4 rounded-lg bg-slate-800 text-white font-semibold hover:bg-slate-700 transition-all border border-slate-700 hover:border-cyan-500"
+              className="px-8 py-4 rounded-lg bg-slate-800 text-white font-semibold hover:bg-slate-700 transition-all border border-slate-700 hover:border-slate-600"
             >
               Download Resume
             </a>

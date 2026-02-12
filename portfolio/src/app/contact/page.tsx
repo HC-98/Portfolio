@@ -38,7 +38,7 @@ export default function ContactPage() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-6">
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
             Get in Touch
           </h1>
           <p className="text-xl text-slate-300 max-w-2xl mx-auto">
@@ -67,7 +67,7 @@ export default function ContactPage() {
                 hidden: { opacity: 0, y: 20 },
                 show: { opacity: 1, y: 0 },
               }}
-              className="group bg-slate-800/50 backdrop-blur-sm rounded-xl p-8 border border-slate-700 hover:border-cyan-500/50 transition-all duration-300"
+              className="group bg-slate-800 rounded-xl p-8 border border-slate-700 hover:border-cyan-500 transition-all duration-300"
             >
               <div className="flex items-start gap-4">
                 <span className="text-5xl">{method.icon}</span>
@@ -93,7 +93,7 @@ export default function ContactPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-12 border border-cyan-500/30 text-center"
+          className="bg-slate-800 rounded-xl p-12 border border-slate-700 text-center"
         >
           <h2 className="text-3xl font-bold text-white mb-4">
             Want to know more?
@@ -105,13 +105,13 @@ export default function ContactPage() {
             <a
               href="/Hikmet Cilan Resume.pdf"
               download
-              className="px-8 py-4 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold hover:from-cyan-600 hover:to-blue-700 transition-all shadow-lg hover:shadow-cyan-500/50"
+              className="px-8 py-4 rounded-lg bg-cyan-500 text-white font-semibold hover:bg-cyan-600 transition-all"
             >
               Download Resume
             </a>
             <Link
               href="/projects"
-              className="px-8 py-4 rounded-lg bg-slate-800 text-white font-semibold hover:bg-slate-700 transition-all border border-slate-700 hover:border-cyan-500"
+              className="px-8 py-4 rounded-lg bg-slate-700 text-white font-semibold hover:bg-slate-600 transition-all border border-slate-600 hover:border-slate-500"
             >
               View Projects
             </Link>

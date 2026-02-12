@@ -14,8 +14,8 @@ export default function AboutPage() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-6">
-            👋 Hi, I&apos;m <span className="bg-gradient-to-r from-cyan-400 to-blue-600 bg-clip-text text-transparent">Hikmet Çilan</span>
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+            👋 Hi, I&apos;m <span className="text-cyan-400">Hikmet Çilan</span>
           </h1>
           <p className="text-xl text-slate-300 max-w-2xl mx-auto">
             A developer passionate about building{" "}
@@ -32,7 +32,7 @@ export default function AboutPage() {
           transition={{ delay: 0.3, duration: 0.6 }}
           className="space-y-6 text-slate-300 leading-relaxed text-lg"
         >
-          <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-8 border border-slate-700">
+          <div className="bg-slate-800 rounded-xl p-8 border border-slate-700">
             <p>
               I currently work at{" "}
               <span className="text-cyan-400 font-semibold">InSpark</span>, where I build modern
@@ -43,7 +43,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-8 border border-slate-700">
+          <div className="bg-slate-800 rounded-xl p-8 border border-slate-700">
             <p>
               Outside of work, I love creating tools that directly impact the
               people around me. Whether it&apos;s{" "}
@@ -54,7 +54,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-8 border border-slate-700">
+          <div className="bg-slate-800 rounded-xl p-8 border border-slate-700">
             <p>
               My mindset is simple:{" "}
               <span className="text-white font-semibold">
@@ -66,7 +66,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-8 border border-slate-700">
+          <div className="bg-slate-800 rounded-xl p-8 border border-slate-700">
             <p>
               Beyond coding, I enjoy learning about Islamic history, Arabic, and
               cooking — blending technology, faith, and family life.
@@ -85,7 +85,7 @@ export default function AboutPage() {
           <h2 className="text-3xl font-bold text-white mb-6 text-center">
             My Values
           </h2>
-          <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-8 border border-cyan-500/30">
+          <div className="bg-slate-800 rounded-xl p-8 border border-slate-700">
             <p className="text-slate-300 leading-relaxed text-lg">
               I believe technology should be{" "}
               <span className="text-cyan-400 font-semibold">
@@ -122,7 +122,7 @@ export default function AboutPage() {
         >
           <Link
             href="/projects"
-            className="inline-block px-8 py-4 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold hover:from-cyan-600 hover:to-blue-700 transition-all shadow-lg hover:shadow-cyan-500/50"
+            className="inline-block px-8 py-4 rounded-lg bg-cyan-500 text-white font-semibold hover:bg-cyan-600 transition-all"
           >
             Check Out My Projects
           </Link>
