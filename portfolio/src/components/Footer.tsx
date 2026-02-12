@@ -15,7 +15,7 @@ export default function Footer() {
               <div className="relative w-10 h-10">
                 <div className="absolute inset-0 bg-cyan-500 rounded-lg"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-lg font-bold text-slate-900">
+                  <span className="text-lg font-bold text-white">
                     HC
                   </span>
                 </div>
@@ -95,12 +95,9 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="mt-12 pt-8 border-t border-slate-800 text-center">
           <p className="text-slate-500 text-sm">
             © {currentYear} Hikmet Çilan. All rights reserved.
-          </p>
-          <p className="text-slate-500 text-sm">
-            Built with Next.js, TypeScript & Tailwind CSS
           </p>
         </div>
       </div>

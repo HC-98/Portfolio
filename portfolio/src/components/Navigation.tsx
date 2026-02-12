@@ -26,7 +26,7 @@ export default function Navigation() {
             <div className="relative w-10 h-10">
               <div className="absolute inset-0 bg-cyan-500 rounded-lg group-hover:bg-cyan-600 transition-colors duration-300"></div>
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-lg font-bold text-slate-900">
+                <span className="text-lg font-bold text-white">
                   HC
                 </span>
               </div>
