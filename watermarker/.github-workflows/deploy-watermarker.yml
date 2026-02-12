@@ -65,9 +65,3 @@ jobs:
         app-name: 'watermarker-hikmet'  # Change to your Azure app name
         publish-profile: ${{ secrets.AZURE_WATERMARKER_PUBLISH_PROFILE }}
         package: ./watermarker
-
-# Setup Instructions:
-# 1. Create Azure App Service (F1 Free tier)
-# 2. Download publish profile from Azure Portal
-# 3. Add to GitHub Secrets as: AZURE_WATERMARKER_PUBLISH_PROFILE
-# 4. Update 'app-name' above to match your Azure app name
