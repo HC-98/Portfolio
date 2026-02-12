@@ -53,6 +53,12 @@ export default function HomePage() {
               View Projects
             </Link>
             <Link
+              href="/tools"
+              className="px-8 py-4 rounded-lg bg-gradient-to-r from-purple-500 to-pink-600 text-white font-semibold hover:from-purple-600 hover:to-pink-700 transition-all shadow-lg hover:shadow-purple-500/50"
+            >
+              Explore Tools
+            </Link>
+            <Link
               href="/contact"
               className="px-8 py-4 rounded-lg bg-slate-800 text-white font-semibold hover:bg-slate-700 transition-all border border-slate-700 hover:border-cyan-500"
             >
