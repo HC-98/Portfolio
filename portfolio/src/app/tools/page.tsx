@@ -38,7 +38,7 @@ export default function ToolsPage() {
             </span>
           </h1>
           <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-            Practical web tools and utilities I've created to solve real-world problems.
+            Practical web tools and utilities I&apos;ve created to solve real-world problems.
             Each tool is designed with usability and performance in mind.
           </p>
         </div>
@@ -126,7 +126,7 @@ export default function ToolsPage() {
             <div className="text-4xl mb-4">🚀</div>
             <h3 className="text-xl font-bold text-white mb-2">More Tools Coming Soon</h3>
             <p className="text-slate-400 max-w-md">
-              I'm constantly building new tools to solve interesting problems. 
+              I&apos;m constantly building new tools to solve interesting problems. 
               Check back regularly for updates!
             </p>
           </div>
