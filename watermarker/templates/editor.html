@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Watermark Editor</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            overflow-x: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+        
+        .header .filename {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .container {
+            display: flex;
+            height: calc(100vh - 80px);
+        }
+        
+        .sidebar {
+            width: 350px;
+            background: white;
+            padding: 25px;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+        }
+        
+        .sidebar h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+        
+        .control-group {
+            margin-bottom: 25px;
+        }
+        
+        .control-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+        
+        .control-group input[type="text"],
+        .control-group input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 1em;
+            transition: border-color 0.2s;
+        }
+        
+        .control-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .slider-group {
+            margin-bottom: 25px;
+        }
+        
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+        
+        .slider-value {
+            color: #667eea;
+            font-weight: 700;
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #e0e0e0;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb:hover {
+            background: #5568d3;
+        }
+        
+        input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn-preview {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-preview:hover {
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-download {
+            background: #10b981;
+            color: white;
+        }
+        
+        .btn-download:hover {
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+        
+        .btn-reset {
+            background: #f3f4f6;
+            color: #666;
+        }
+        
+        .viewer-container {
+            flex: 1;
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            overflow: hidden;
+        }
+        
+        .pdf-viewer {
+            flex: 1;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .viewer-header {
+            padding: 15px 20px;
+            background: #f9fafb;
+            border-bottom: 1px solid #e5e7eb;
+            font-weight: 600;
+            color: #374151;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .page-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9em;
+        }
+        
+        .page-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .page-btn:hover {
+            background: #5568d3;
+        }
+        
+        .page-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .page-info {
+            color: #666;
+            font-weight: normal;
+        }
+        
+        .viewer-content {
+            flex: 1;
+            overflow: auto;
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            background: #f9fafb;
+        }
+        
+        canvas {
+            max-width: 100%;
+            height: auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-radius: 4px;
+        }
+        
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #999;
+            font-size: 1.1em;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin-right: 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .info-box {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 20px;
+            font-size: 0.85em;
+            color: #1e40af;
+        }
+        
+        @media (max-width: 1200px) {
+            .viewer-container {
+                flex-direction: column;
+            }
+            
+            .pdf-viewer {
+                height: 50vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📄 PDF Watermark Editor</h1>
+        <div class="filename">Editing: {{ filename }}</div>
+    </div>
+    
+    <div class="container">
+        <div class="sidebar">
+            <h2>⚙️ Watermark Settings</h2>
+            
+            <div class="control-group">
+                <label for="watermarkText">Watermark Text</label>
+                <input type="text" id="watermarkText" value="Confidential" placeholder="Enter text">
+            </div>
+            
+            <div class="slider-group">
+                <div class="slider-label">
+                    <span>Font Size</span>
+                    <span class="slider-value"><span id="fontSizeValue">60</span>px</span>
+                </div>
+                <input type="range" id="fontSize" min="20" max="150" value="60" step="5">
+            </div>
+            
+            <div class="slider-group">
+                <div class="slider-label">
+                    <span>Opacity</span>
+                    <span class="slider-value"><span id="opacityValue">25</span>%</span>
+                </div>
+                <input type="range" id="opacity" min="0" max="100" value="25" step="5">
+            </div>
+            
+            <div class="slider-group">
+                <div class="slider-label">
+                    <span>Rotation</span>
+                    <span class="slider-value"><span id="rotationValue">45</span>°</span>
+                </div>
+                <input type="range" id="rotation" min="-90" max="90" value="45" step="5">
+            </div>
+            
+            <div class="slider-group">
+                <div class="slider-label">
+                    <span>Horizontal Position</span>
+                    <span class="slider-value"><span id="xOffsetValue">0</span>px</span>
+                </div>
+                <input type="range" id="xOffset" min="-300" max="300" value="0" step="10">
+            </div>
+            
+            <div class="slider-group">
+                <div class="slider-label">
+                    <span>Vertical Position</span>
+                    <span class="slider-value"><span id="yOffsetValue">0</span>px</span>
+                </div>
+                <input type="range" id="yOffset" min="-300" max="300" value="0" step="10">
+            </div>
+            
+            <div class="button-group">
+                <button class="btn btn-reset" onclick="resetSettings()">↺ Reset</button>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn btn-preview" onclick="updatePreview()">🔄 Update Preview</button>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn btn-download" onclick="downloadWatermarked()">⬇️ Download</button>
+            </div>
+            
+            <div class="info-box">
+                💡 <strong>Tip:</strong> Adjust the settings and click "Update Preview" to see changes. The watermark will be applied to <strong>all pages</strong> of your PDF.
+            </div>
+        </div>
+        
+        <div class="viewer-container">
+            <div class="pdf-viewer">
+                <div class="viewer-header">
+                    <span>Original PDF</span>
+                    <div class="page-controls">
+                        <button class="page-btn" id="originalPrevBtn" onclick="changePage('original', -1)">◄</button>
+                        <span class="page-info" id="originalPageInfo">Page 1 of 1</span>
+                        <button class="page-btn" id="originalNextBtn" onclick="changePage('original', 1)">►</button>
+                    </div>
+                </div>
+                <div class="viewer-content" id="originalViewer">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        Loading original...
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pdf-viewer">
+                <div class="viewer-header">
+                    <span>Preview with Watermark</span>
+                    <div class="page-controls">
+                        <button class="page-btn" id="previewPrevBtn" onclick="changePage('preview', -1)">◄</button>
+                        <span class="page-info" id="previewPageInfo">Page 1 of 1</span>
+                        <button class="page-btn" id="previewNextBtn" onclick="changePage('preview', 1)">►</button>
+                    </div>
+                </div>
+                <div class="viewer-content" id="previewViewer">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        Generating preview...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Set up PDF.js worker
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        
+        // State management
+        let currentPages = {
+            original: 1,
+            preview: 1
+        };
+        let pdfDocs = {
+            original: null,
+            preview: null
+        };
+        
+        // Update slider value displays
+        document.getElementById('fontSize').addEventListener('input', (e) => {
+            document.getElementById('fontSizeValue').textContent = e.target.value;
+        });
+        
+        document.getElementById('opacity').addEventListener('input', (e) => {
+            document.getElementById('opacityValue').textContent = e.target.value;
+        });
+        
+        document.getElementById('rotation').addEventListener('input', (e) => {
+            document.getElementById('rotationValue').textContent = e.target.value;
+        });
+        
+        document.getElementById('xOffset').addEventListener('input', (e) => {
+            document.getElementById('xOffsetValue').textContent = e.target.value;
+        });
+        
+        document.getElementById('yOffset').addEventListener('input', (e) => {
+            document.getElementById('yOffsetValue').textContent = e.target.value;
+        });
+        
+        // Load and render PDF
+        async function renderPDF(url, viewerType, pageNum = 1) {
+            const containerId = viewerType + 'Viewer';
+            const container = document.getElementById(containerId);
+            
+            try {
+                const loadingTask = pdfjsLib.getDocument(url);
+                const pdf = await loadingTask.promise;
+                
+                // Store PDF document
+                pdfDocs[viewerType] = pdf;
+                
+                // Make sure page number is valid
+                if (pageNum < 1) pageNum = 1;
+                if (pageNum > pdf.numPages) pageNum = pdf.numPages;
+                
+                currentPages[viewerType] = pageNum;
+                
+                // Update page info
+                document.getElementById(viewerType + 'PageInfo').textContent = 
+                    `Page ${pageNum} of ${pdf.numPages}`;
+                
+                // Update navigation buttons
+                document.getElementById(viewerType + 'PrevBtn').disabled = (pageNum <= 1);
+                document.getElementById(viewerType + 'NextBtn').disabled = (pageNum >= pdf.numPages);
+                
+                // Render the page
+                const page = await pdf.getPage(pageNum);
+                
+                const scale = 1.5;
+                const viewport = page.getViewport({ scale });
+                
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+                
+                container.innerHTML = '';
+                container.appendChild(canvas);
+                
+                await page.render({
+                    canvasContext: context,
+                    viewport: viewport
+                }).promise;
+                
+            } catch (error) {
+                container.innerHTML = `<div style="color: red;">Error loading PDF: ${error.message}</div>`;
+            }
+        }
+        
+        // Change page
+        async function changePage(viewerType, delta) {
+            const pdf = pdfDocs[viewerType];
+            if (!pdf) return;
+            
+            const newPage = currentPages[viewerType] + delta;
+            if (newPage < 1 || newPage > pdf.numPages) return;
+            
+            currentPages[viewerType] = newPage;
+            
+            // Re-render from the cached PDF blob or URL
+            if (viewerType === 'original') {
+                await renderPDF('/get_original_pdf', 'original', newPage);
+            } else {
+                // For preview, we need to regenerate or use cached URL
+                // For simplicity, we'll keep the same preview across pages
+                // since watermark is applied to all pages the same way
+                await renderFromCachedPreview(newPage);
+            }
+        }
+        
+        let cachedPreviewUrl = null;
+        
+        async function renderFromCachedPreview(pageNum) {
+            if (cachedPreviewUrl && pdfDocs.preview) {
+                const pdf = pdfDocs.preview;
+                const containerId = 'previewViewer';
+                const container = document.getElementById(containerId);
+                
+                const page = await pdf.getPage(pageNum);
+                const scale = 1.5;
+                const viewport = page.getViewport({ scale });
+                
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+                
+                container.innerHTML = '';
+                container.appendChild(canvas);
+                
+                await page.render({
+                    canvasContext: context,
+                    viewport: viewport
+                }).promise;
+                
+                // Update page info
+                document.getElementById('previewPageInfo').textContent = 
+                    `Page ${pageNum} of ${pdf.numPages}`;
+                document.getElementById('previewPrevBtn').disabled = (pageNum <= 1);
+                document.getElementById('previewNextBtn').disabled = (pageNum >= pdf.numPages);
+                
+                currentPages.preview = pageNum;
+            }
+        }
+        
+        // Get current settings
+        function getSettings() {
+            return {
+                text: document.getElementById('watermarkText').value || 'Confidential',
+                fontSize: parseInt(document.getElementById('fontSize').value),
+                opacity: parseFloat(document.getElementById('opacity').value) / 100,
+                rotation: parseFloat(document.getElementById('rotation').value),
+                xOffset: parseFloat(document.getElementById('xOffset').value),
+                yOffset: parseFloat(document.getElementById('yOffset').value)
+            };
+        }
+        
+        // Update preview
+        async function updatePreview() {
+            const previewViewer = document.getElementById('previewViewer');
+            previewViewer.innerHTML = '<div class="loading"><div class="spinner"></div>Generating preview...</div>';
+            
+            try {
+                const settings = getSettings();
+                const response = await fetch('/preview', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(settings)
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to generate preview');
+                }
+                
+                const blob = await response.blob();
+                
+                // Clean up old URL if exists
+                if (cachedPreviewUrl) {
+                    URL.revokeObjectURL(cachedPreviewUrl);
+                }
+                
+                cachedPreviewUrl = URL.createObjectURL(blob);
+                await renderPDF(cachedPreviewUrl, 'preview', 1);
+                
+            } catch (error) {
+                previewViewer.innerHTML = `<div style="color: red;">Error: ${error.message}</div>`;
+            }
+        }
+        
+        // Download watermarked PDF
+        async function downloadWatermarked() {
+            try {
+                const settings = getSettings();
+                const response = await fetch('/download', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(settings)
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to download PDF');
+                }
+                
+                const blob = await response.blob();
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'watermarked.pdf';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                alert('✅ PDF downloaded successfully!');
+                
+            } catch (error) {
+                alert('❌ Error downloading PDF: ' + error.message);
+            }
+        }
+        
+        // Reset settings
+        function resetSettings() {
+            document.getElementById('watermarkText').value = 'Confidential';
+            document.getElementById('fontSize').value = 60;
+            document.getElementById('opacity').value = 25;
+            document.getElementById('rotation').value = 45;
+            document.getElementById('xOffset').value = 0;
+            document.getElementById('yOffset').value = 0;
+            
+            document.getElementById('fontSizeValue').textContent = '60';
+            document.getElementById('opacityValue').textContent = '25';
+            document.getElementById('rotationValue').textContent = '45';
+            document.getElementById('xOffsetValue').textContent = '0';
+            document.getElementById('yOffsetValue').textContent = '0';
+            
+            updatePreview();
+        }
+        
+        // Load original PDF on page load
+        window.addEventListener('load', () => {
+            renderPDF('/get_original_pdf', 'original', 1);
+            updatePreview();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+name: Deploy Watermarker to Azure
+
+# Trigger only when watermarker folder changes
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'watermarker/**'
+  workflow_dispatch:
+    inputs:
+      force_deploy:
+        description: 'Force deploy watermarker'
+        required: false
+        default: 'false'
+
+jobs:
+  check-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      watermarker_changed: ${{ steps.changes.outputs.watermarker }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+      
+      - name: Check for changes in watermarker folder
+        id: changes
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "watermarker=true" >> $GITHUB_OUTPUT
+          else
+            git diff --name-only HEAD^ HEAD > changes.txt
+            if grep -q "^watermarker/" changes.txt; then
+              echo "watermarker=true" >> $GITHUB_OUTPUT
+              echo "Changes detected in watermarker folder"
+            else
+              echo "watermarker=false" >> $GITHUB_OUTPUT
+              echo "No changes in watermarker folder"
+            fi
+          fi
+
+  deploy-watermarker:
+    needs: check-changes
+    if: needs.check-changes.outputs.watermarker_changed == 'true'
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      working-directory: ./watermarker
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'watermarker-hikmet'  # Change to your Azure app name
+        publish-profile: ${{ secrets.AZURE_WATERMARKER_PUBLISH_PROFILE }}
+        package: ./watermarker
+
+# Setup Instructions:
+# 1. Create Azure App Service (F1 Free tier)
+# 2. Download publish profile from Azure Portal
+# 3. Add to GitHub Secrets as: AZURE_WATERMARKER_PUBLISH_PROFILE
+# 4. Update 'app-name' above to match your Azure app name
