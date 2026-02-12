@@ -1,10 +1,15 @@
 # dependencies
 /node_modules
+/portfolio/node_modules
+/watermarker/__pycache__
 
 # build outputs
 /.next
 /out
 /build
+/portfolio/.next
+/portfolio/out
+/portfolio/build
 
 # misc
 .DS_Store
